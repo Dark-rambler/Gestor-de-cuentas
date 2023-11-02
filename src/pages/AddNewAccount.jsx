@@ -35,7 +35,6 @@ function AddNewAccount () {
   })
   const validateCodigo = (value) => { 
     const codigo = data.find(item => item.codigo === value)
-    console.log(codigo)
     if (codigo) {
       errorToast('El código ya existe')
       return false

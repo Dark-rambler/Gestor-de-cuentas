@@ -3,6 +3,10 @@ import { Button } from '../components/button/Button'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
 import { errorToast } from '../services/toasts'
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 function SearchAccount () {
   const [search, setSearch] = useState([])
@@ -16,11 +20,50 @@ function SearchAccount () {
       errorToast('No se pudo cargar las cuentas')
     }
   })
+
   const searchAccount = value => {
     const objetosEncontrados = data.filter(item =>
       item.nombre.toLowerCase().startsWith(value.toLowerCase())
     )
     setSearch(objetosEncontrados)
+  }
+
+  const descargarPDF = () => {
+    console.log('descargando pdf')
+    const pdfContent = {
+      content: [
+        {
+          text: 'Listado de Cuentas',
+          style: 'header'
+        },
+        {
+          table: {
+            headerRows: 1,
+            widths: [70, '*', '*'],
+            body: [
+              ['Código', 'Nombre', 'Saldo'],
+              ...search.map(item => [
+                item.codigo,
+                item.nombre,
+                item.haber - item.debe
+              ])
+            ]
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 0, 10]
+        }
+      }
+    }
+
+    const pdfDoc = pdfMake.createPdf(pdfContent)
+
+    pdfDoc.download('listado_cuentas.pdf')
   }
 
   return (
@@ -42,16 +85,18 @@ function SearchAccount () {
       </label>
       <div className='flex items-center justify-between'>
         <h2 className='text-2xl my-6 font-semibold'>Resultado</h2>
-        <Button
-          text={'Descargar PDF'}
-          icon={'backArrow'}
-          className={'border border-primary font-bold'}
-        />
-      </div>{' '}
-      <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0 border-y-2 border-primary '>
-        <table className='border-primary border-x-2 w-full '>
+        <span onClick={descargarPDF}>
+          <Button
+            text={'Descargar PDF'}
+            icon={'upArrow'}
+            className={'border border-primary font-bold'}
+          />
+        </span>
+      </div>
+      <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0 border-y-2 border-primary'>
+        <table className='border-primary border-x-2 w-full'>
           <thead className='border-primary border-x-2 border-b-2'>
-            <tr className=''>
+            <tr>
               <th>Código</th>
               <th className='border-primary border-x-2'>Nombre</th>
               <th>Saldo</th>
@@ -59,19 +104,19 @@ function SearchAccount () {
           </thead>
           <tbody>
             {!isLoading ? (
-              search? (
+              search ? (
                 search.map((item, index) => (
                   <tr
                     className='border-primary border-2 text-center'
                     key={index}
                   >
                     <td>{item.codigo}</td>
-                    <td className='border-primary border-x-2 '>{item.nombre}</td>
+                    <td className='border-primary border-x-2'>{item.nombre}</td>
                     <td>{item.haber - item.debe}</td>
                   </tr>
                 ))
               ) : (
-                <div >no se encontraton coincidencias </div>
+                <div>no se encontraron coincidencias </div>
               )
             ) : (
               isLoading && <span className='ms-11'>Cargando...</span>
@@ -84,4 +129,5 @@ function SearchAccount () {
     </section>
   )
 }
+
 export default SearchAccount
