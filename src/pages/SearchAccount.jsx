@@ -4,8 +4,8 @@ import { useQuery } from 'react-query'
 import { useState } from 'react'
 import { errorToast } from '../services/toasts'
 import * as pdfMake from "pdfmake/build/pdfmake";
- import * as pdfFonts from 'pdfmake/build/vfs_fonts';
- (pdfMake).vfs = pdfFonts.pdfMake.vfs;
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
 
 function SearchAccount () {
   const [search, setSearch] = useState([])
@@ -19,6 +19,7 @@ function SearchAccount () {
       errorToast('No se pudo cargar las cuentas')
     }
   })
+  pdfMake.vfs = pdfFonts.pdfMake.vfs
 
   const searchAccount = value => {
     const objetosEncontrados = data.filter(item =>
