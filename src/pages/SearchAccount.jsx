@@ -18,6 +18,7 @@ function SearchAccount () {
       errorToast('No se pudo cargar las cuentas')
     }
   })
+
   const searchAccount = value => {
     const objetosEncontrados = data.filter(item =>
       item.nombre.toLowerCase().startsWith(value.toLowerCase())
@@ -73,7 +74,7 @@ function SearchAccount () {
       <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0 border-y-2 border-primary '>
         <table className='border-primary border-x-2 w-full '>
           <thead className='border-primary border-x-2 border-b-2'>
-            <tr className=''>
+            <tr>
               <th>Código</th>
               <th className='border-primary border-x-2'>Nombre</th>
               <th>Saldo</th>
@@ -108,4 +109,5 @@ function SearchAccount () {
     </section>
   )
 }
+
 export default SearchAccount
