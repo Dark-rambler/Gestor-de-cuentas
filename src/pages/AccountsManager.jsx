@@ -9,7 +9,7 @@ function AccountsManager () {
         title={'Agregar nueva cuenta'}
         icon={'user'}
         text={
-          'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum!'
+          'Agrega una nueva cuenta al sistema, recuerda que el código debe ser único.'
         }
       />
       <Card
@@ -17,7 +17,7 @@ function AccountsManager () {
         title={'Buscar cuenta'}
         icon={'glass'}
         text={
-          'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum!  '
+          'Busca una cuenta en el sistema, puedes buscar por nombre.  '
         }
       ></Card>
       <Card
@@ -25,7 +25,7 @@ function AccountsManager () {
         title={'Modificar datos de cuenta'}
         icon={'glass'}
         text={
-          'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum!  '
+          'Modifica los datos de una cuenta en el sistema, puedes buscar por codigo.  '
         }
       ></Card>
     </section>

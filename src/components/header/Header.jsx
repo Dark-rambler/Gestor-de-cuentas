@@ -4,7 +4,7 @@ import { IconSelector } from '../iconSelector/IconSelector'
 import { IoIosCart } from 'react-icons/io'
 export const Header = ({ onClickSidebarButton, showMenu }) => {
   return (
-    <div className='transition-all duration-75'>
+    <div className='transition-all duration-75 shadow-md'>
       <div className='bg-primary text-xl  text-lime-50 py-5 px-6 flex  justify-between'>
         <div className='flex items-center space-x-3'>
           <span className='cursor-pointer w-8' onClick={onClickSidebarButton}>

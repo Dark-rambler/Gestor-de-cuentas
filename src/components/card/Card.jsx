@@ -7,7 +7,7 @@ export const Card = ({ title, icon, text, navigation }) => {
   return (
     <div
       onClick={() => navigate(navigation)}
-      className=' cursor-pointer transform transition-transform  active:scale-95 hover:scale-105 my-7 px-4 py-7 bg-white rounded shadow-2xl border overflow-hidden '
+      className=' cursor-pointer transform transition-transform  active:scale-95 hover:scale-105 my-5 px-4 py-7 bg-white rounded shadow-2xl border overflow-hidden '
     >
       <div className=' text-gray-700 text-lg  space-x-2 py-4 flex items-center '>
         <IconSelector name={icon} />
