@@ -1,9 +1,10 @@
 import { Button } from '../components/button/Button'
 
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
+import { useQuery, useMutation } from 'react-query'
 
-import { createAccount } from '../services/accounts'
+
+import { createAccount, getAccounts } from '../services/accounts'
 import { errorToast, succesToast } from '../services/toasts'
 
 function AddNewAccount () {
@@ -15,6 +16,14 @@ function AddNewAccount () {
     reset
   } = useForm()
 
+  const { data } = useQuery({
+    queryKey: ['accounts'],
+    queryFn: () => getAccounts(1),
+    onError: () => {
+      errorToast('No se pudo cargar las cuentas')
+    }
+  })
+
   const addProductMutation = useMutation({
     mutationFn: createAccount,
     onSuccess: () => {
@@ -24,12 +33,26 @@ function AddNewAccount () {
       errorToast('No se pudo crear la cuenta')
     }
   })
+  const validateCodigo = (value) => { 
+    const codigo = data.find(item => item.codigo === value)
+    console.log(codigo)
+    if (codigo) {
+      errorToast('El código ya existe')
+      return false
+    }
+    return true
+  }
 
   const onSubmit = () => {
+   
+    if (!validateCodigo(watch('codigo'))) return
+
     addProductMutation.mutate({ ...watch(), negocioId: 1 })
     reset()
   }
 
+
+  
   return (
     <section className='my-6'>
       <Button
