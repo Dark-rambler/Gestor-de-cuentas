@@ -8,14 +8,16 @@ function AccountsManager () {
         navigation={'/addNewAccount'}
         title={'Agregar nueva cuenta'}
         icon={'user'}
-        text={'Agregue cuentas nuevas a la base de datos.'}
+        text={
+          'Agrega una nueva cuenta al sistema, recuerda que el código debe ser único.'
+        }
       />
       <Card
         navigation={'/searchAccount'}
         title={'Buscar cuenta'}
         icon={'glass'}
         text={
-          'Realice una búsqueda de cuentas en la base de datos por medio del nombre'
+          'Busca una cuenta en el sistema, puedes buscar por nombre.  '
         }
       ></Card>
       <Card
@@ -23,7 +25,7 @@ function AccountsManager () {
         title={'Modificar datos de cuenta'}
         icon={'glass'}
         text={
-          'Modifique una cuenta en la base de datos por medio del código de la cuenta'
+          'Modifica los datos de una cuenta en el sistema, puedes buscar por codigo.  '
         }
       ></Card>
     </section>
