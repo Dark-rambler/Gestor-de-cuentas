@@ -50,10 +50,10 @@ function SearchAccount () {
       </div>{' '}
       <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0 border-y-2 border-primary '>
         <table className='border-primary border-x-2 w-full '>
-          <thead className='border-primary border-2'>
+          <thead className='border-primary border-x-2 border-b-2'>
             <tr className=''>
               <th>Código</th>
-              <th className='border-primary border-2'>Nombre</th>
+              <th className='border-primary border-x-2'>Nombre</th>
               <th>Saldo</th>
             </tr>
           </thead>
@@ -66,12 +66,12 @@ function SearchAccount () {
                     key={index}
                   >
                     <td>{item.codigo}</td>
-                    <td className='border-primary border-x-2'>{item.nombre}</td>
+                    <td className='border-primary border-x-2 '>{item.nombre}</td>
                     <td>{item.haber - item.debe}</td>
                   </tr>
                 ))
               ) : (
-                <div className=''>no se encontraton coincidencias </div>
+                <div >no se encontraton coincidencias </div>
               )
             ) : (
               isLoading && <span className='ms-11'>Cargando...</span>
