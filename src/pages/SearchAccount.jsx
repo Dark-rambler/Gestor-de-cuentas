@@ -48,8 +48,8 @@ function SearchAccount () {
           className={'border border-primary font-bold'}
         />
       </div>{' '}
-      <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0'>
-        <table className='border-primary border-2 w-full '>
+      <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0 border-y-2 border-primary '>
+        <table className='border-primary border-x-2 w-full '>
           <thead className='border-primary border-2'>
             <tr className=''>
               <th>Código</th>
@@ -59,7 +59,7 @@ function SearchAccount () {
           </thead>
           <tbody>
             {!isLoading ? (
-              search.length > 0 ? (
+              search? (
                 search.map((item, index) => (
                   <tr
                     className='border-primary border-2 text-center'
