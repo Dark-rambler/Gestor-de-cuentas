@@ -3,10 +3,9 @@ import { Button } from '../components/button/Button'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
 import { errorToast } from '../services/toasts'
-import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+import * as pdfMake from "pdfmake/build/pdfmake";
+ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+ (pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 function SearchAccount () {
   const [search, setSearch] = useState([])
