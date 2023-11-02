@@ -54,7 +54,7 @@ function AddNewAccount () {
               },
               pattern: {
                 value: /^[0-9.]+$/,
-                message: 'El código deben ser un números'
+                message: 'El código deben ser un número'
               }
             })}
           />

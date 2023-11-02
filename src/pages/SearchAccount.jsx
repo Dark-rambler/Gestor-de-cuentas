@@ -71,7 +71,7 @@ function SearchAccount () {
                   </tr>
                 ))
               ) : (
-                <div className=''>no se encontraton coincidencias</div>
+                <div className=''>no se encontraton coincidencias </div>
               )
             ) : (
               isLoading && <span className='ms-11'>Cargando...</span>
