@@ -1,7 +1,7 @@
 {
   "name": "gestordecuentas",
   "private": true,
-  "homepage": "http://dark-rambler.github.io/Gestor-de-cuentas",
+  "homepage": "http://Dark-rambler.github.io/Gestor-de-cuentas",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
