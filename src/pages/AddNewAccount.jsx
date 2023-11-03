@@ -7,7 +7,6 @@ import { createAccount, getAccounts } from '../services/accounts'
 import { errorToast, succesToast } from '../services/toasts'
 
 function AddNewAccount () {
-  // inicializamos el hook useForm
   const {
     register,
     handleSubmit,
@@ -16,7 +15,6 @@ function AddNewAccount () {
     reset
   } = useForm()
 
-  // inicializamos el hook useQuery
   const { data } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
@@ -25,7 +23,6 @@ function AddNewAccount () {
     }
   })
 
-  // inicializamos el hook useMutation
   const addProductMutation = useMutation({
     mutationFn: createAccount,
     onSuccess: () => {
@@ -48,7 +45,6 @@ function AddNewAccount () {
     return true
   }
 
-  // función que se ejecuta al enviar el formulario
   const onSubmit = () => {
     if (!validateCodigo(watch('codigo'))) return
 

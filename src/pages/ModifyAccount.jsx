@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
 function ModifyAccount () {
-  // inicializamos el hook useForm
   const {
     register,
     handleSubmit,
@@ -17,7 +16,6 @@ function ModifyAccount () {
     reset
   } = useForm()
 
-  // inicializamos el hook useQuery
   const { data } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
@@ -26,7 +24,6 @@ function ModifyAccount () {
     }
   })
 
-  // inicializamos el hook useMutation
   const modifyAccountMutation = useMutation({
     mutationFn: updateAccount,
     onSuccess: () => {

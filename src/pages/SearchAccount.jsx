@@ -1,7 +1,7 @@
 import { getAccounts } from '../services/accounts'
 import { Button } from '../components/button/Button'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useQuery } from 'react-query'
 import { errorToast } from '../services/toasts'
@@ -10,17 +10,19 @@ import { generatePDF } from '../services/pdfConverter'
 function SearchAccount () {
   const [search, setSearch] = useState([])
 
-  // inicializamos el hook useQuery
   const { isLoading, data, isError } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
-    onSuccess: () => {
-      setSearch(data)
-    },
     onError: () => {
       errorToast('No se pudo cargar las cuentas')
     }
   })
+
+  // inicializamos el hook useEffect
+  // para que se ejecute cada vez que cambie el valor de data
+  useEffect(() => {
+    setSearch(data)
+  }, [data])
 
   // función que busca el id de la cuenta
   // si el código ya existe en el array de cuentas
