@@ -1,4 +1,6 @@
 import axios from 'axios'
+
+//instancia de axios para la api de cuentas
 const accountApi = axios.create({
   baseURL: 'https://web-production-0986.up.railway.app/api/v1/cuentas/'
 })

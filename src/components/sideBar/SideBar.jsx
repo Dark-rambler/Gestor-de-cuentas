@@ -16,6 +16,9 @@ export const SideBar = ({ showMenu }) => {
     overflow-y-hidden
     ps-4
     pe-5
+    text-xl
+    space-y-4
+    pt-4
  `}
     >
       <li className=' relative cursor-pointer border-2 border-primary  hover:border-b-secondary/50'>

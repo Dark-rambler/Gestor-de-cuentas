@@ -10,7 +10,7 @@ export const Button = ({ text, className, icon, navigation, type }) => {
       onClick={() => navigate(navigation)}
     >
       <IconSelector name={icon} />
-      {text}
+      <p className={`${icon && 'ms-2'}`}>{text}</p>
     </button>
   )
 }

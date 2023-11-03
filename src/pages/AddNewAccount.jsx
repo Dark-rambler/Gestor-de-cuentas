@@ -1,9 +1,9 @@
 import { Button } from '../components/button/Button'
 
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
+import { useQuery, useMutation } from 'react-query'
 
-import { createAccount } from '../services/accounts'
+import { createAccount, getAccounts } from '../services/accounts'
 import { errorToast, succesToast } from '../services/toasts'
 
 function AddNewAccount () {
@@ -15,6 +15,14 @@ function AddNewAccount () {
     reset
   } = useForm()
 
+  const { data } = useQuery({
+    queryKey: ['accounts'],
+    queryFn: () => getAccounts(1),
+    onError: () => {
+      errorToast('No se pudo cargar las cuentas')
+    }
+  })
+
   const addProductMutation = useMutation({
     mutationFn: createAccount,
     onSuccess: () => {
@@ -25,7 +33,21 @@ function AddNewAccount () {
     }
   })
 
+  // validamos que el código sea único
+  // si el código ya existe en el array de cuentas
+  // retornamos false y mostramos un error
+  const validateCodigo = value => {
+    const codigo = data.find(item => item.codigo === value)
+    if (codigo) {
+      errorToast('El código ya existe')
+      return false
+    }
+    return true
+  }
+
   const onSubmit = () => {
+    if (!validateCodigo(watch('codigo'))) return
+
     addProductMutation.mutate({ ...watch(), negocioId: 1 })
     reset()
   }
@@ -54,7 +76,7 @@ function AddNewAccount () {
               },
               pattern: {
                 value: /^[0-9.]+$/,
-                message: 'El código deben ser un números'
+                message: 'El código deben ser un número'
               }
             })}
           />

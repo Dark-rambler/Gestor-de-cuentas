@@ -1,26 +1,41 @@
 import { getAccounts } from '../services/accounts'
 import { Button } from '../components/button/Button'
+
+import { useEffect, useState } from 'react'
+
 import { useQuery } from 'react-query'
-import { useState } from 'react'
 import { errorToast } from '../services/toasts'
+import { generatePDF } from '../services/pdfConverter'
 
 function SearchAccount () {
   const [search, setSearch] = useState([])
+
   const { isLoading, data, isError } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
-    onSuccess: () => {
-      setSearch(data)
-    },
     onError: () => {
       errorToast('No se pudo cargar las cuentas')
     }
   })
+
+  // inicializamos el hook useEffect
+  // para que se ejecute cada vez que cambie el valor de data
+  useEffect(() => {
+    setSearch(data)
+  }, [data])
+
+  // función que busca el id de la cuenta
+  // si el código ya existe en el array de cuentas
+  // retornamos false y mostramos un error
   const searchAccount = value => {
-    const objetosEncontrados = data.filter(item =>
+    const dataFinded = data.filter(item =>
       item.nombre.toLowerCase().startsWith(value.toLowerCase())
     )
-    setSearch(objetosEncontrados)
+    setSearch(dataFinded)
+  }
+
+  const downloadPDF = () => {
+    generatePDF(search, 'listado_de_cuentas', ['Código', 'Nombre', 'Saldo'])
   }
 
   return (
@@ -42,46 +57,53 @@ function SearchAccount () {
       </label>
       <div className='flex items-center justify-between'>
         <h2 className='text-2xl my-6 font-semibold'>Resultado</h2>
-        <Button
-          text={'Descargar PDF'}
-          icon={'backArrow'}
-          className={'border border-primary font-bold'}
-        />
+        <span onClick={() => downloadPDF()}>
+          <Button
+            text={'Descargar PDF'}
+            icon={'uploadArrow'}
+            className={
+              'border border-secondary text-white bg-secondary font-bold'
+            }
+          />
+        </span>
       </div>{' '}
-      <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0'>
-        <table className='border-primary border-2 w-full '>
-          <thead className='border-primary border-2'>
-            <tr className=''>
+      <div className='overflow-hidden overflow-y-auto max-h-96 min-h-0 border-y-2 border-primary '>
+        <table className='border-primary border-x-2 w-full '>
+          <thead className='border-primary border-x-2 border-b-2'>
+            <tr>
               <th>Código</th>
-              <th className='border-primary border-2'>Nombre</th>
+              <th className='border-primary border-x-2'>Nombre</th>
               <th>Saldo</th>
             </tr>
           </thead>
           <tbody>
             {!isLoading ? (
-              search.length > 0 ? (
+              search ? (
                 search.map((item, index) => (
                   <tr
                     className='border-primary border-2 text-center'
                     key={index}
                   >
                     <td>{item.codigo}</td>
-                    <td className='border-primary border-x-2'>{item.nombre}</td>
+                    <td className='border-primary border-x-2 '>
+                      {item.nombre}
+                    </td>
                     <td>{item.haber - item.debe}</td>
                   </tr>
                 ))
               ) : (
-                <div className=''>no se encontraton coincidencias</div>
+                <div>no se encontraton coincidencias </div>
               )
             ) : (
-              isLoading && <span className='ms-11'>Cargando...</span>
+              <span className='ms-11'>Cargando...</span>
             )}
 
-            {isError && <span className='ms-11'>Hubo un error</span>}
+            {isError && <span className='ms-11'>Ocurrió un error</span>}
           </tbody>
         </table>
       </div>
     </section>
   )
 }
+
 export default SearchAccount
