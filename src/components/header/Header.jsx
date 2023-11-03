@@ -22,7 +22,9 @@ export const Header = ({ onClickSidebarButton, showMenu }) => {
         <div className='flex space-x-4 items-center'>
           <Button
             text={'Salir'}
-            className={'text-tertiary  border-tertiary bg-white'}
+            className={
+              'text-white  border-secondary/40 bg-secondary/40 hover:bg-secondary transition-colors duration-500'
+            }
           >
             Salir
           </Button>

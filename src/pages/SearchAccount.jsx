@@ -8,9 +8,8 @@ import { errorToast } from '../services/toasts'
 import { generatePDF } from '../services/pdfConverter'
 
 function SearchAccount () {
-
   const [search, setSearch] = useState([])
-  
+
   const { isLoading, data, isError } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
@@ -56,7 +55,9 @@ function SearchAccount () {
           <Button
             text={'Descargar PDF'}
             icon={'uploadArrow'}
-            className={'border border-primary font-bold'}
+            className={
+              'border border-secondary text-white bg-secondary font-bold'
+            }
           />
         </span>
       </div>{' '}
