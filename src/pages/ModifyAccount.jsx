@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
 function ModifyAccount () {
+  // inicializamos el hook useForm
   const {
     register,
     handleSubmit,
@@ -16,6 +17,7 @@ function ModifyAccount () {
     reset
   } = useForm()
 
+  // inicializamos el hook useQuery
   const { data } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
@@ -24,6 +26,7 @@ function ModifyAccount () {
     }
   })
 
+  // inicializamos el hook useMutation
   const modifyAccountMutation = useMutation({
     mutationFn: updateAccount,
     onSuccess: () => {
@@ -34,6 +37,9 @@ function ModifyAccount () {
     }
   })
 
+  // función que busca el id de la cuenta
+  // si el código ya existe en el array de cuentas
+  // retornamos false y mostramos un error
   const findIdAccount = () => {
     const account = data.find(item => item.codigo == watch('code'))
     if (!account) {
@@ -43,6 +49,9 @@ function ModifyAccount () {
     return account.id
   }
 
+  // función que se ejecuta al enviar el formulario
+  // si el código no existe en el array de cuentas
+  // retornamos false y mostramos un error
   const onSubmit = () => {
     const values = {
       nombre: watch('name'),

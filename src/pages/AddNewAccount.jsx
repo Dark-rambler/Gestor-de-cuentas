@@ -3,11 +3,11 @@ import { Button } from '../components/button/Button'
 import { useForm } from 'react-hook-form'
 import { useQuery, useMutation } from 'react-query'
 
-
 import { createAccount, getAccounts } from '../services/accounts'
 import { errorToast, succesToast } from '../services/toasts'
 
 function AddNewAccount () {
+  // inicializamos el hook useForm
   const {
     register,
     handleSubmit,
@@ -16,6 +16,7 @@ function AddNewAccount () {
     reset
   } = useForm()
 
+  // inicializamos el hook useQuery
   const { data } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
@@ -24,6 +25,7 @@ function AddNewAccount () {
     }
   })
 
+  // inicializamos el hook useMutation
   const addProductMutation = useMutation({
     mutationFn: createAccount,
     onSuccess: () => {
@@ -34,7 +36,10 @@ function AddNewAccount () {
     }
   })
 
-  const validateCodigo = (value) => { 
+  // validamos que el código sea único
+  // si el código ya existe en el array de cuentas
+  // retornamos false y mostramos un error
+  const validateCodigo = value => {
     const codigo = data.find(item => item.codigo === value)
     if (codigo) {
       errorToast('El código ya existe')
@@ -43,8 +48,8 @@ function AddNewAccount () {
     return true
   }
 
+  // función que se ejecuta al enviar el formulario
   const onSubmit = () => {
-   
     if (!validateCodigo(watch('codigo'))) return
 
     addProductMutation.mutate({ ...watch(), negocioId: 1 })

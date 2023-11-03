@@ -10,6 +10,7 @@ import { generatePDF } from '../services/pdfConverter'
 function SearchAccount () {
   const [search, setSearch] = useState([])
 
+  // inicializamos el hook useQuery
   const { isLoading, data, isError } = useQuery({
     queryKey: ['accounts'],
     queryFn: () => getAccounts(1),
@@ -21,6 +22,9 @@ function SearchAccount () {
     }
   })
 
+  // función que busca el id de la cuenta
+  // si el código ya existe en el array de cuentas
+  // retornamos false y mostramos un error
   const searchAccount = value => {
     const dataFinded = data.filter(item =>
       item.nombre.toLowerCase().startsWith(value.toLowerCase())
