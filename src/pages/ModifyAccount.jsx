@@ -157,7 +157,7 @@ function ModifyAccount () {
           />
           <Button
             text={'Crear cuenta'}
-            className={' bg-secondary text-primary font-bold float-right '}
+            className={' bg-secondary text-white font-bold float-right '}
           />
         </div>
       </form>
