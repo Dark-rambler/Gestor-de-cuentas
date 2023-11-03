@@ -33,6 +33,7 @@ function AddNewAccount () {
       errorToast('No se pudo crear la cuenta')
     }
   })
+
   const validateCodigo = (value) => { 
     const codigo = data.find(item => item.codigo === value)
     if (codigo) {
@@ -50,8 +51,6 @@ function AddNewAccount () {
     reset()
   }
 
-
-  
   return (
     <section className='my-6'>
       <Button
