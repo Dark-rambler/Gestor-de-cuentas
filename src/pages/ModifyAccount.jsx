@@ -34,6 +34,9 @@ function ModifyAccount () {
     }
   })
 
+  // función que busca el id de la cuenta
+  // si el código ya existe en el array de cuentas
+  // retornamos false y mostramos un error
   const findIdAccount = () => {
     const account = data.find(item => item.codigo == watch('code'))
     if (!account) {
@@ -43,6 +46,9 @@ function ModifyAccount () {
     return account.id
   }
 
+  // función que se ejecuta al enviar el formulario
+  // si el código no existe en el array de cuentas
+  // retornamos false y mostramos un error
   const onSubmit = () => {
     const values = {
       nombre: watch('name'),
@@ -157,7 +163,7 @@ function ModifyAccount () {
           />
           <Button
             text={'Crear cuenta'}
-            className={' bg-secondary text-primary font-bold float-right '}
+            className={' bg-secondary text-white font-bold float-right '}
           />
         </div>
       </form>
